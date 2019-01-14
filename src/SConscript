@@ -1,3 +1,5 @@
+import platform
+
 Import('env')
 
 target = 'physics_engine'
@@ -5,6 +7,9 @@ source = (
     'integrator.c',
 )
 
-lib = env.StaticLibrary(target, source)
+if platform.system().lower() == 'darwin':
+    lib = env.SharedLibrary(target, source)
+else:
+    lib = env.StaticLibrary(target, source)
 
 Return('lib')
