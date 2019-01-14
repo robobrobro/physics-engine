@@ -38,7 +38,7 @@ envs = (
 )
 
 dirs = (
-    'src',
+    'lib',
 )
 
 for env in envs:
