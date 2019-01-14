@@ -2,7 +2,7 @@ Import('env')
 
 target = 'physics_engine'
 source = (
-    'src/api.c',
+    'src/integrator.c',
 )
 
 lib = env.StaticLibrary(target, source)
