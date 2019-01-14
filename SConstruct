@@ -38,7 +38,7 @@ envs = (
 )
 
 dirs = (
-    '.',
+    'src',
 )
 
 for env in envs:
