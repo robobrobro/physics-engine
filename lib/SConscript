@@ -5,6 +5,7 @@ Import('env')
 target = 'physics_engine'
 source = (
     'src/integrator.c',
+    'src/loop.c',
 )
 
 env.Append(
