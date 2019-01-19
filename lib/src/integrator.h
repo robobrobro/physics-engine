@@ -6,4 +6,4 @@ struct state
     float m;        // mass
 };
 
-void integrate(struct state *s, float dt);
+void integrate(struct state *s, float dt) __attribute((visibility("hidden")));
