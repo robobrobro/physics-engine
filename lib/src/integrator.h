@@ -1,3 +1,6 @@
+#ifndef INTEGRATOR_H
+#define INTEGRATOR_H
+
 struct state
 {
     float x, y;     // position
@@ -7,3 +10,5 @@ struct state
 };
 
 void integrate(struct state *s, float dt) __attribute((visibility("hidden")));
+
+#endif  /* INTEGRATOR_H */
