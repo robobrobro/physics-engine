@@ -4,7 +4,7 @@
 
 #include "integrator.h"
 
-#include <assert.h>
+#include "debug.h"
 #include <stddef.h>
 
 void integrate(struct state *s, float dt)

@@ -7,6 +7,12 @@ source = (
     'src/integrator.c',
 )
 
+env.Append(
+    CPPPATH = [
+        'src/$MODE',
+    ],
+)
+
 if platform.system().lower() == 'darwin':
     lib = env.SharedLibrary(target, source)
 else:
