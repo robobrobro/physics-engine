@@ -1,3 +1,4 @@
 *.dblite
+*.swo
 *.swp
 build/
