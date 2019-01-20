@@ -55,3 +55,5 @@ for env in envs:
             exports = {'env': env.Clone()},
         )
         env.Install('$STAGING_DIR', objs)
+
+base_env.Command('build/doc/html/index.html', ['include/physics.h'], 'doxygen doxygen.cfg')
