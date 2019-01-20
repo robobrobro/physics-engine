@@ -6,24 +6,6 @@ env.Append(
     ],
 )
 
-env.Append(
-    LIBS = [
-        'physics_engine',
-    ],
-)
-
-env.Append(
-    LIBS = [
-        'physics_engine',
-    ],
-)
-
-env.Append(
-    LIBS = [
-        'physics_engine',
-    ],
-)
-
 target = 'example'
 source = (
     'src/main.c',
