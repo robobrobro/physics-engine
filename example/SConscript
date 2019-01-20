@@ -1,0 +1,34 @@
+Import('env')
+
+env.Append(
+    LIBS = [
+        'physics_engine',
+    ],
+)
+
+env.Append(
+    LIBS = [
+        'physics_engine',
+    ],
+)
+
+env.Append(
+    LIBS = [
+        'physics_engine',
+    ],
+)
+
+env.Append(
+    LIBS = [
+        'physics_engine',
+    ],
+)
+
+target = 'example'
+source = (
+    'src/main.c',
+)
+
+example = env.Program(target, source)
+
+Return('example')

@@ -13,6 +13,10 @@ base_env = Environment(
     CPPPATH = [
         '#include',
     ],
+
+    LIBPATH = [
+        '$STAGING_DIR',
+    ],
 )
 
 dbg_env = base_env.Clone(MODE='debug')
@@ -38,6 +42,7 @@ envs = (
 )
 
 dirs = (
+    'example',
     'lib',
 )
 
