@@ -37,9 +37,10 @@ typedef void (*pe_loop_cb_t)(const struct pe_body *bodies, size_t body_count, vo
 /**
  * @brief Initialize the physics engine
  * @param loop_cb Physics engine loop callback function
+ * @param arg User argument
  * @returns 0 on success
  */
-int pe_init(pe_loop_cb_t loop_cb);
+int pe_init(const pe_loop_cb_t loop_cb, void *arg);
 
 /**
  * @brief Finalize the physics engine
@@ -67,5 +68,11 @@ int pe_add_force(const struct pe_vector *force);
  * @returns 0 on success
  */
 int pe_loop(void);
+
+/**
+ * @brief Abort the physics engine, causing it to exit the loop if running
+ * @returns 0 on success
+ */
+int pe_abort(void);
 
 #endif  /* PHYSICS_H */

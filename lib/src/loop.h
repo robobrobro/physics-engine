@@ -3,8 +3,6 @@
 
 #include "integrator.h"
 
-typedef void (*loop_cb_t)(const struct state *s, void *arg);
-
-void loop(struct state *current, struct state *previous, loop_cb_t cb, void *arg);
+void loop(struct integrator_state *current, struct integrator_state *previous, struct pe_body *bodies, size_t body_count) __attribute((visibility("hidden")));
 
 #endif  /* LOOP_H */

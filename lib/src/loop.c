@@ -10,16 +10,16 @@ static double accumulator = 0;
 
 static double hires_time_in_seconds(void);
 
-void loop(struct state *current, struct state *previous, loop_cb_t cb, void *arg)
+void loop(struct integrator_state *current, struct integrator_state *previous, struct pe_body *bodies, size_t body_count)
 {
-    struct state s;
     double frame_time;
     double now;
     double alpha;
+    size_t idx;
 
     assert(current != NULL);
     assert(previous != NULL);
-    assert(cb != NULL);
+    assert(bodies != NULL);
 
     if (last_time == 0)
         last_time = hires_time_in_seconds();
@@ -35,19 +35,19 @@ void loop(struct state *current, struct state *previous, loop_cb_t cb, void *arg
     accumulator += frame_time;
 
     while (accumulator >= dt) {
-        *previous = *current;
+        *previous->positions = *current->positions;
+        *previous->velocities = *current->velocities;
         integrate(current, dt);
         accumulator -= dt;
     }
 
     alpha = accumulator / dt;
 
-    s.x = current->x * alpha + previous->x * (1.0 - alpha);
-    s.vx = current->vx * alpha + previous->vx * (1.0 - alpha);
-    s.y = current->y * alpha + previous->y * (1.0 - alpha);
-    s.vy = current->vy * alpha + previous->vy * (1.0 - alpha);
-
-    cb(&s, arg);
+    for (idx = 0; idx < body_count; ++idx) {
+        struct pe_body *body = &bodies[idx];
+        body->position.x = current->positions[idx].x * alpha + previous->positions[idx].x * (1.0 - alpha);
+        body->position.y = current->positions[idx].y * alpha + previous->positions[idx].y * (1.0 - alpha);
+    }
 }
 
 static double hires_time_in_seconds(void)
