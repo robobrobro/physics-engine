@@ -12,10 +12,13 @@
  * @brief A 2D vector
  */
 struct pe_vector {
-    float x;
-    float y;
+    float x;    /**< Magnitude along the x-axis */
+    float y;    /**< Magnitude along the y-axis */
 };
 
+/**
+ * @brief Shape types
+ */
 enum pe_shape {
     PE_SHAPE_ELLIPSE,
     PE_SHAPE_RECTANGLE,
@@ -25,10 +28,10 @@ enum pe_shape {
  * @brief A physics body
  */
 struct pe_body {
-    struct pe_vector position;  ///!< Initial position of the center of the body
-    struct pe_vector size;
-    enum pe_shape shape;
-    float mass;                 ///!< Mass (in kg)
+    struct pe_vector position;  /**< Initial position of the center of the body (in meters) */
+    struct pe_vector size;      /**< Size of the body (in meters) */
+    enum pe_shape shape;        /**< Shape of the body (in meters) */
+    float mass;                 /**< Mass (in kg) */
 };
 
 /**
@@ -63,7 +66,7 @@ int pe_add_body(const struct pe_body *body);
 /**
  * @brief Add a force to the physics engine
  * Add a constant force to the physics engine, for the lifetime of the engine
- * @param force Force to add
+ * @param force Force (in newtons) to add
  * @returns 0 on success
  */
 int pe_add_force(const struct pe_vector *force);
