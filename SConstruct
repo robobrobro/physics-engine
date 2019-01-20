@@ -56,4 +56,5 @@ for env in envs:
         )
         env.Install('$STAGING_DIR', objs)
 
-base_env.Command('build/doc/html/index.html', ['include/physics.h'], 'doxygen doxygen.cfg')
+docs = base_env.Command('build/doc/html/index.html', ['include/physics.h'], 'doxygen doxygen.cfg')
+base_env.Clean(docs, 'build/doc')
