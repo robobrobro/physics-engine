@@ -46,15 +46,21 @@ dirs = (
     'lib',
 )
 
-for env in envs:
-    for d in dirs:
+for d in dirs:
+    dir_objs = []
+
+    for env in envs:
         objs = SConscript(
             dirs = d,
             variant_dir = env.subst('$BUILD_DIR/' + d),
             duplicate = False,
             exports = {'env': env.Clone()},
         )
+        dir_objs.extend(objs)
+
         env.Install('$STAGING_DIR', objs)
+
+    env.Alias(d, dir_objs)
 
 docs = base_env.Command('build/doc/html/index.html', ['include/physics.h'], 'doxygen doxygen.cfg')
 base_env.Clean(docs, 'build/doc')
