@@ -1,10 +1,33 @@
+from SCons.Errors import StopError
+import os
+import platform
+
 Import('env')
 
+GLFW_PATH = os.environ.get('GLFW_PATH', '')
+
 env.Append(
+    CPPPATH = [
+        os.path.join(GLFW_PATH, 'include'),
+    ],
+    LIBPATH = [
+        os.path.join(GLFW_PATH, 'src'),
+    ],
     LIBS = [
+        'glfw3',
         'physics_engine',
     ],
 )
+
+if platform.system().lower() == 'darwin':
+    env.Append(
+        LINKFLAGS = [
+            '-framework', 'Cocoa',
+            '-framework', 'CoreVideo',
+            '-framework', 'IOKit',
+            '-framework', 'OpenGL',
+        ],
+    )
 
 target = 'example'
 source = (
