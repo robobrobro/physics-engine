@@ -26,7 +26,7 @@ static void on_loop(const struct pe_body *bodies, size_t body_count, void *arg)
     }
 }
 
-static void on_exit(void)
+static void on_quit(void)
 {
     (void) pe_fini();
 }
@@ -47,7 +47,7 @@ int main(void)
 
     struct pe_vector gravity = { -10, 0 };
 
-    if (atexit(on_exit))
+    if (atexit(on_quit))
         die("adding exit handler");
 
     if (signal(SIGINT, quit))
