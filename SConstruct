@@ -1,7 +1,7 @@
 base_env = Environment(
     BUILD_ROOT = '#build',
     BUILD_DIR = '$BUILD_ROOT/$MODE',
-    STAGING_ROOT = '$BUILD_ROOT/bin',
+    STAGING_ROOT = '#dist',
     STAGING_DIR = '$STAGING_ROOT/$MODE',
 
     CCFLAGS = [
