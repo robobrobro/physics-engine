@@ -4,6 +4,7 @@ import platform
 
 Import('env')
 
+OS = platform.system().lower()
 GLFW_PATH = os.environ.get('GLFW_PATH', '')
 
 env.Append(
@@ -19,13 +20,20 @@ env.Append(
     ],
 )
 
-if platform.system().lower() == 'darwin':
+if OS == 'darwin':
     env.Append(
         LINKFLAGS = [
             '-framework', 'Cocoa',
             '-framework', 'CoreVideo',
             '-framework', 'IOKit',
             '-framework', 'OpenGL',
+        ],
+    )
+elif 'cygwin' in OS:
+    env.Append(
+        LIBS = [
+            'opengl32',
+            'X11',
         ],
     )
 
