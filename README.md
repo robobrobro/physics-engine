@@ -5,7 +5,7 @@ A 2D physics engine implemented in C.
 ## Prerequisites
 
 - [SCons](https://scons.org/) - software construction tool (e.g. GNU Make)
-- [Doxygen](http://www.doxygen.nl/) - documentation generatmion tool
+- [Doxygen](http://www.doxygen.nl/) - documentation generation tool
 
 ## Building
 
