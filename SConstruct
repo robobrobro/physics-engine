@@ -3,16 +3,23 @@ base_env = Environment(
 )
 base_env.Tool('base')
 
-dbg_env = base_env.Clone()
-dbg_env.Tool('debug')
+host_env = base_env.Clone()
+host_env.Tool('host')
 
-rel_env = base_env.Clone()
-rel_env.Tool('release')
-
-envs = (
-    dbg_env,
-    rel_env,
+os_envs = (
+    host_env,
 )
+
+envs = []
+
+for env in os_envs:
+    dbg_env = env.Clone()
+    dbg_env.Tool('debug')
+    envs.append(dbg_env)
+
+    rel_env = env.Clone()
+    rel_env.Tool('release')
+    envs.append(rel_env)
 
 dirs = (
     'example',
