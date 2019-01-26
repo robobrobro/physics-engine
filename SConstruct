@@ -1,40 +1,13 @@
 base_env = Environment(
-    BUILD_ROOT = '#build',
-    BUILD_DIR = '$BUILD_ROOT/$MODE',
-    STAGING_ROOT = '#dist',
-    STAGING_DIR = '$STAGING_ROOT/$MODE',
-
-    CCFLAGS = [
-        '-Wall',
-        '-Werror',
-        '-Wextra',
-    ],
-
-    CPPPATH = [
-        '#include',
-    ],
-
-    LIBPATH = [
-        '$STAGING_DIR',
-    ],
+    CPPPATH = ['#include'],
 )
+base_env.Tool('base')
 
-dbg_env = base_env.Clone(MODE='debug')
-dbg_env.Append(
-    CCFLAGS = [
-        '-g',
-    ],
-)
+dbg_env = base_env.Clone()
+dbg_env.Tool('debug')
 
-rel_env = base_env.Clone(MODE='release')
-rel_env.Append(
-    CCFLAGS = [
-        '-O3',
-    ],
-    LINKFLAGS = [
-        '-s',
-    ],
-)
+rel_env = base_env.Clone()
+rel_env.Tool('release')
 
 envs = (
     dbg_env,
