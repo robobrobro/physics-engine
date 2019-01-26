@@ -43,4 +43,5 @@ for d in dirs:
 
     env.Alias(d, dir_objs)
 
-base_env.Doxygen('include/physics.h')
+docs = base_env.Doxygen('include/physics.h')
+base_env.Install('#dist', docs)
