@@ -1,6 +1,7 @@
 #include "loop.h"
 
 #include "debug.h"
+#include <string.h>
 #include <time.h>
 
 #define dt 0.01
@@ -35,8 +36,8 @@ void loop(struct integrator_state *current, struct integrator_state *previous, s
     accumulator += frame_time;
 
     while (accumulator >= dt) {
-        *previous->positions = *current->positions;
-        *previous->velocities = *current->velocities;
+        memcpy(previous->positions, current->positions, sizeof(*previous->positions) * body_count);
+        memcpy(previous->velocities, current->velocities, sizeof(*previous->velocities) * body_count);
         integrate(current, dt);
         accumulator -= dt;
     }
