@@ -1,4 +1,5 @@
 *.dblite
+*.pyc
 *.swo
 *.swp
 build/
