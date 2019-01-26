@@ -2,6 +2,7 @@ base_env = Environment(
     CPPPATH = ['#include'],
 )
 base_env.Tool('base')
+base_env.Tool('doxygen')
 
 host_env = base_env.Clone()
 host_env.Tool('host')
@@ -42,5 +43,4 @@ for d in dirs:
 
     env.Alias(d, dir_objs)
 
-docs = base_env.Command('build/doc/html/index.html', ['include/physics.h'], 'doxygen doxygen.cfg')
-base_env.Clean(docs, 'build/doc')
+base_env.Doxygen('include/physics.h')
