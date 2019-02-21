@@ -20,23 +20,6 @@ env.Append(
     ],
 )
 
-if OS == 'darwin':
-    env.Append(
-        LINKFLAGS = [
-            '-framework', 'Cocoa',
-            '-framework', 'CoreVideo',
-            '-framework', 'IOKit',
-            '-framework', 'OpenGL',
-        ],
-    )
-elif 'cygwin' in OS:
-    env.Append(
-        LIBS = [
-            'opengl32',
-            'X11',
-        ],
-    )
-
 target = 'example'
 source = (
     'src/main.c',
