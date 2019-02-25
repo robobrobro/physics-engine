@@ -1,24 +1,11 @@
-from SCons.Errors import StopError
-import os
-import platform
-
 Import('env')
 
-OS = platform.system().lower()
-GLFW_PATH = os.environ.get('GLFW_PATH', '')
-
 env.Append(
-    CPPPATH = [
-        os.path.join(GLFW_PATH, 'include'),
-    ],
-    LIBPATH = [
-        os.path.join(GLFW_PATH, 'src'),
-    ],
     LIBS = [
-        'glfw3',
         'physics_engine',
     ],
 )
+env.Tool('glfw')
 
 target = 'example'
 source = (
