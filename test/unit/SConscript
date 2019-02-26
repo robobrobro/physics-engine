@@ -1,0 +1,21 @@
+Import('env')
+
+env.Tool('unity')
+
+env.Append(
+    CPPPATH = 'src',
+    LIBS = [
+        'physics_engine',
+    ],
+)
+
+target = 'unit_test.log'
+
+source = (
+    'src/main.c',
+    'src/test_pe_init.c',
+)
+
+log = env.BuildAndRunUnitTests(target, source)
+
+Return('log')

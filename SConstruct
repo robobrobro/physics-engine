@@ -43,6 +43,16 @@ for d in dirs:
 
     env.Alias(d, dir_objs)
 
+test_env = host_env.Clone()
+test_env.Tool('debug')
+objs = SConscript(
+    dirs = 'test',
+    variant_dir = test_env.subst('$BUILD_DIR/test'),
+    duplicate = False,
+    exports = {'env': test_env.Clone()},
+)
+test_env.Alias('test', objs)
+
 docs = base_env.Doxygen('lib/include/physics.h')
 installed_docs = base_env.Install('#dist', docs)
 env.Clean(docs, installed_docs)
