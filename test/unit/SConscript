@@ -18,4 +18,18 @@ source = (
 
 log = env.BuildAndRunUnitTests(target, source)
 
-Return('log')
+coverage_source = (
+    log,
+    source,
+)
+
+coverage = env.GenerateCodeCoverageReport(
+    target = 'coverage',
+    source = coverage_source,
+    data_dir = '$BUILD_DIR/lib/src',
+    title = 'physics-engine',
+)
+
+env.Clean(log, coverage)
+
+Return('log coverage')

@@ -44,14 +44,31 @@ for d in dirs:
     env.Alias(d, dir_objs)
 
 test_env = host_env.Clone()
-test_env.Tool('debug')
-objs = SConscript(
+test_env.Tool('test')
+test_env.Tool('coverage')
+
+test_lib = SConscript(
+    dirs = 'lib',
+    variant_dir = test_env.subst('$BUILD_DIR/lib'),
+    duplicate = False,
+    exports = {'env': test_env.Clone()},
+)
+
+staged_test_lib = test_env.Install('$STAGING_DIR', test_lib)
+
+test_objs = SConscript(
     dirs = 'test',
     variant_dir = test_env.subst('$BUILD_DIR/test'),
     duplicate = False,
     exports = {'env': test_env.Clone()},
 )
-test_env.Alias('test', objs)
+
+staged_test_objs = test_env.Install('$STAGING_DIR', test_objs)
+test_env.Depends(test_objs, staged_test_lib)
+test_env.Clean(test_objs, staged_test_objs)
+
+test_objs.append(test_lib)
+test_env.Alias('test', test_objs)
 
 docs = base_env.Doxygen('lib/include/physics.h')
 installed_docs = base_env.Install('#dist', docs)
