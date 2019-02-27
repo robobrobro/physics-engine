@@ -27,6 +27,8 @@ dirs = (
     'lib',
 )
 
+all_objs = []
+
 for d in dirs:
     dir_objs = []
 
@@ -42,6 +44,7 @@ for d in dirs:
         env.Install('$STAGING_DIR', objs)
 
     env.Alias(d, dir_objs)
+    all_objs.extend(dir_objs)
 
 test_env = host_env.Clone()
 test_env.Tool('test')
@@ -69,7 +72,12 @@ test_env.Clean(test_objs, staged_test_objs)
 
 test_objs.append(test_lib)
 test_env.Alias('test', test_objs)
+all_objs.extend(test_objs)
 
 docs = base_env.Doxygen('lib/include/physics.h')
 installed_docs = base_env.Install('#dist', docs)
-env.Clean(docs, installed_docs)
+base_env.Clean(docs, installed_docs)
+all_objs.extend(installed_docs)
+
+base_env.Clean(all_objs, '$BUILD_ROOT')
+base_env.Clean(all_objs, '$STAGING_ROOT')
