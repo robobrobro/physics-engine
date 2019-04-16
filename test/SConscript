@@ -1,0 +1,16 @@
+Import('env')
+
+dirs = (
+    'unit',
+)
+
+objs = []
+
+for d in dirs:
+    objs.extend(SConscript(
+        dirs = d,
+        duplicate = False,
+        exports = {'env': env.Clone()},
+    ))
+
+Return('objs')

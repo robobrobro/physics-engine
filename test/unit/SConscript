@@ -1,0 +1,39 @@
+Import('env')
+
+env.Tool('unity', valgrind=env['OS'] is 'linux')
+
+env.Append(
+    CPPPATH = 'src',
+    LIBS = [
+        'physics_engine',
+    ],
+)
+
+target = 'unit_test.log'
+
+source = (
+    'src/main.c',
+    'src/test_pe_init.c',
+    'src/test_pe_fini.c',
+    'src/test_pe_add_body.c',
+    'src/test_pe_add_force.c',
+    'src/test_pe_loop.c',
+)
+
+log = env.BuildAndRunUnitTests(target, source)
+
+coverage_source = (
+    log,
+    source,
+)
+
+coverage = env.GenerateCodeCoverageReport(
+    target = 'coverage',
+    source = coverage_source,
+    data_dir = '$BUILD_DIR/lib/src',
+    title = 'physics-engine',
+)
+
+env.Clean(log, coverage)
+
+Return('log coverage')
