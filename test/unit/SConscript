@@ -1,6 +1,6 @@
 Import('env')
 
-env.Tool('unity')
+env.Tool('unity', valgrind=env['OS'] is 'linux')
 
 env.Append(
     CPPPATH = 'src',
