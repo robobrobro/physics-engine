@@ -4,6 +4,7 @@ from SCons.Builder import Builder
 from SCons.Errors import StopError
 import os
 import subprocess
+import sys
 
 def exists(env):
     return True
@@ -34,7 +35,13 @@ def generate(env, valgrind=False):
                     lines.append(line)
                     print(line, end='')
 
+        sys.stdout.flush()
+
         if proc.returncode != 0:
+            sys.stdout.write(proc.stdout.read())
+            sys.stdout.flush()
+            sys.stderr.write(proc.stderr.read())
+            sys.stderr.flush()
             raise StopError('Unit tests failed')
 
         with open(str(target[0]), 'w') as f:
