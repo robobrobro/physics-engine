@@ -8,11 +8,23 @@ import subprocess
 def exists(env):
     return True
 
-def generate(env):
+def generate(env, valgrind=False):
     def run_unit_tests(target, source, env):
         runner_path = str(source[0])
 
-        proc = subprocess.Popen([runner_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if valgrind:
+            cmd = [
+                'valgrind',
+                '-q',
+                '--leak-check=full',
+                '--track-origins=yes',
+                '--show-leak-kinds=all',
+                runner_path,
+            ]
+        else:
+            cmd = [runner_path]
+
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         lines = []
 
         while proc.poll() is None:
