@@ -134,6 +134,9 @@ int integrator_loop(void)
 {
     _looping = true;
 
+    if (!_loop_cb)
+        return (errno = EINVAL);
+
     while (_looping) {
         loop(&_current_state, &_previous_state, _bodies, _body_count);
         _loop_cb(_bodies, _body_count, _loop_cb_arg);
